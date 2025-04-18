@@ -11,7 +11,7 @@ export default function HomePage(props: any) {
     console.log("props", props);
     return (
         <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
-            <Header>              
+            <Header>
                 <div className="flex grow justify-end px-2">
                     <div className="flex items-stretch">
                         <div className="dropdown dropdown-start bg-transparent mr-3">

@@ -29,7 +29,8 @@ export default function plan(props: any) {
                             <div className="max-w-100 mx-auto font-normal font-poppins mb-4 text-black text-xl">Netwatch dipersonalisasikan khusus untukmu. Buat sandi untuk menonton di perangkat apa pun, kapan pun.</div>
 
                             <form action={route('signup.regform')} method="get">
-                                <input type="email" name="email" value={email} required className="hidden" />
+                                {/* Hilangin required soalnya bakal stuck kalau pakai tombol sign in yang di navbar soalnya perlu parameter email */}
+                                <input type="email" name="email" value={email} className="hidden" />
                                 <button type="submit" className="h-12 w-full mt-4 btn btn-ghost font-poppins bg-sky-600 rounded-md shadow-none text-white border-none hover:bg-sky-700 focus:bg-sky-700 text-xl font-medium">Berikutnya</button>
                             </form>
                         </div>
