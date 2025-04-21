@@ -38,9 +38,21 @@ export default function RegForm(props: any) {
     <div className="min-h-screen bg-white">
       <Header divider={true}>
         {!props.auth.user ? (
-          <Link href={route('register')} as="button" className="h-8 btn btn-ghost bg-sky-600 rounded-field text-white">Sign in</Link>
+          <Link
+            href={route("register")}
+            as="button"
+            className="h-8 btn btn-ghost font-poppins rounded-field shadow-none border-none text-black hover:underline hover:bg-transparent text-lg"
+          >
+            Sign in
+          </Link>
         ) : (
-          <Link href={route('logout')} as="button" className="h-8 btn btn-ghost bg-sky-600 rounded-field text-white">Sign out</Link>
+          <Link
+            href={route("logout")}
+            as="button"
+            className="h-8 btn btn-ghost font-poppins rounded-field shadow-none border-none text-black hover:underline hover:bg-transparent text-lg"
+          >
+            Sign out
+          </Link>
         )}
       </Header>
 
