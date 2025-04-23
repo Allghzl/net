@@ -13,6 +13,7 @@ type RegisterForm = {
 };
 
 export default function RegForm(props: any) {
+  console.log("props", props);
   const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
     email: props.email || '',
     password: '',
@@ -27,6 +28,11 @@ export default function RegForm(props: any) {
     e.preventDefault();
     post(route('register'), {
       onFinish: () => reset('password'),
+      onSuccess: () => {
+        route('signup.plansign', {
+          email: props.email
+        });
+      }
     });
   };
 
@@ -48,6 +54,7 @@ export default function RegForm(props: any) {
         ) : (
           <Link
             href={route("logout")}
+            method="post"
             as="button"
             className="h-8 btn btn-ghost font-poppins rounded-field shadow-none border-none text-black hover:underline hover:bg-transparent text-lg"
           >
@@ -117,7 +124,7 @@ export default function RegForm(props: any) {
                     <InputError message={errors.password} />
                 </div>
 
-              <Button type="submit" className="w-full h-10 bg-sky-600 text-white" disabled={processing}>
+              <Button type="submit" className="w-full h-10 cursor-pointer font-semibold rounded-md hover:bg-sky-700 focus:bg-sky-700 bg-sky-600 text-white" disabled={processing}>
                 {processing && <LoaderCircle className="h-4 w-4 animate-spin mr-2" />}
                 Berikutnya
               </Button>

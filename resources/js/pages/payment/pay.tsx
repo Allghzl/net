@@ -57,7 +57,7 @@ export default function plansign(props: any) {
 
       <div className="text-black flex min-h-svh flex-col items-center gap-6 p-6 md:p-10">
         <div className="w-full max-w-2xl">
-          <div className="flex flex-col rounded-lg bg-white border-2 border-zinc-400/40 shadow-sm">
+          <div className="flex flex-col rounded-lg bg-white border-2 border-zinc-400/40">
             <div className="border-b-2 border-zinc-200 p-3 flex flex-col items-center gap-2 mx-4">
             <h1 className="text-center font-sans text-black text-3xl w-full font-semibold">
                 Selesaikan pembayaran anda
