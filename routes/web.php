@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\WatchController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\NetController;
@@ -12,6 +12,9 @@ Route::get('/', function () {
     return Inertia::render('homepage');
 })->name('home');
 
+Route::get('/beranda', function () {
+    return Inertia::render('dashboard');
+})->name('home');
 
 Route::get('/signup/regform', [AccController::class, 'create'])->name('signup.regform');
 Route::get('/signup/plansign', [AccController::class, 'index'])->name('signup.plansign');
