@@ -6,7 +6,7 @@ import checklist from "@/netcomp/check-list.svg";
 
 export default function plansign(props: any) {
   const email = props.email || "";
-
+  console.log(props)
   return (
     <div className="min-h-screen bg-white bg-center relative overflow-hidden">
       <Header divider={true}>
@@ -21,6 +21,7 @@ export default function plansign(props: any) {
         ) : (
           <Link
             href={route("logout")}
+            method="post"
             as="button"
             className="h-8 btn btn-ghost font-poppins rounded-field shadow-none border-none text-black hover:underline hover:bg-transparent text-lg"
           >
@@ -58,7 +59,7 @@ export default function plansign(props: any) {
                 ))}
               </div>
 
-              <form action={route("signup.regform")} method="get" className="w-full mt-6">
+              <form action={route("signup.planform")} method="get" className="w-full mt-6">
                 <input type="email" name="email" value={email} required className="hidden" />
                 <button
                   type="submit"

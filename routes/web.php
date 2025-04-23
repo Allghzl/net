@@ -12,17 +12,22 @@ Route::get('/', function () {
     return Inertia::render('homepage');
 })->name('home');
 
-Route::get('/beranda', function () {
-    return Inertia::render('dashboard');
-})->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/signup/plansign', [AccController::class, 'index'])->name('signup.plansign');
+    Route::get('/signup/planform', [AccController::class, 'planform'])->name('signup.planform');
+    Route::get('/signup/payment', [AccController::class, 'PaymentForm'])->name('signup.paymentform');
+    
+    Route::post('/signup/plan-save', [AccController::class, 'savePlan'])->name('signup.saveplan');
+    Route::post('/signup/paymentstore', [AccController::class, 'updatePayment'])->name('signup.payUpdate');
+    Route::post('/signup/statusesupdate', [AccController::class, 'updateStatus'])->name('signup.statusUpdate');
+
+    Route::get('/signup/payment/{payment}', [AccController::class, 'Payment'])->name('signup.payment');
+});
+
 
 Route::get('/signup/regform', [AccController::class, 'create'])->name('signup.regform');
-Route::get('/signup/plansign', [AccController::class, 'index'])->name('signup.plansign');
-Route::get('/signup/planform', [AccController::class, 'planform'])->name('signup.planform');
-
-
 Route::get('/plan', function () {
-    return Inertia::render('plan', [
+    return Inertia::render('signup/plan', [
         'email' => request('email')
     ]);
 })->name('plan');

@@ -30,14 +30,16 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
 {
-    // Menghapus 'confirmed' di validasi password untuk tidak memerlukan konfirmasi password
+    
     $request->validate([
+        
         'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-        'password' => ['required', Rules\Password::defaults()], // Hapus 'confirmed' di sini
+        'password' => ['required', Rules\Password::defaults()],
     ]);
 
     // Proses pembuatan user baru
     $user = User::create([
+        
         'email' => $request->email,
         'password' => Hash::make($request->password),
     ]);

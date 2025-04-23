@@ -9,6 +9,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
+import Header from '@/netcomp/header';
+import bg from '@/ImgRes/bg.png';
 
 type LoginForm = {
     email: string;
@@ -33,17 +35,17 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         post(route('login'), {
             onFinish: () => reset('password'),
         });
+        
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
+        <AuthLayout title="Masuk" description=''>
             <Head title="Log in" />
-
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
                         <Label htmlFor="email">Email address</Label>
-                        <Input
+                        <input
                             id="email"
                             type="email"
                             required
@@ -53,6 +55,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             placeholder="email@example.com"
+                            className='p-2 rounded-sm outline-1 focus:outline-1 focus:outline-sky-500'
                         />
                         <InputError message={errors.email} />
                     </div>
@@ -66,7 +69,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 </TextLink>
                             )}
                         </div>
-                        <Input
+                        <input
                             id="password"
                             type="password"
                             required
@@ -75,6 +78,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             placeholder="Password"
+                            className='p-2 rounded-sm outline-1 focus:outline-1 focus:outline-sky-500'
                         />
                         <InputError message={errors.password} />
                     </div>
@@ -90,7 +94,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <Label htmlFor="remember">Remember me</Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                    <Button type="submit" className="mt-4 w-full text-white bg-sky-600" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Log in
                     </Button>
