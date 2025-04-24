@@ -125,9 +125,9 @@ const HeroBanner = () => {
             <button onClick={toggleMute} className="px-4 py-2 bg-white text-black rounded-md font-semibold">
               {muted ? "🔇 Mute" : "🔊 Unmute"}
             </button>
-            <button onClick={() => videoRef.current?.play()} className="px-4 py-2 bg-white text-black rounded-md font-semibold">
+            <a href={route('play')} className="cursor-pointer px-4 py-2 bg-white text-black rounded-md font-semibold">
               Putar
-            </button>
+            </a>
           </div>
         </div>
       </div>
