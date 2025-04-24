@@ -2,16 +2,18 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, GalleryThumbnails } from 'lucide-react';
 import logonet from '@/ImgRes/logonet.svg';
+import { Search } from 'lucide-react';
+useEffect
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: '/dashboard' },
 ];
 
 const dummyData = {
-  continueWatching: [
+  "Lanjutkan menonton": [
     { thumbnail: "/img/Totoro.png" },
     { thumbnail: "/img/howl.png" },
     { thumbnail: "/img/The conjuring.png" },
@@ -22,6 +24,8 @@ const dummyData = {
     { thumbnail: "/img/pedal.png" },
     { thumbnail: "/img/grandma.png" },
     { thumbnail: "/img/milly.png" },
+    { thumbnail: "/img/miracleincell.png" },
+    { thumbnail: "/img/akira.png" },
   ],
   anime: [
     { thumbnail: "/img/isekai.png" },
@@ -38,7 +42,7 @@ const dummyData = {
     { thumbnail: "/img/horimiya.png" },
     { thumbnail: "/img/alya.png" },
   ],
-  ghibli: [
+  "Studio ghibli": [
     { thumbnail: "/img/Totoro.png" },
     { thumbnail: "/img/howl.png" },
     { thumbnail: "/img/poppyhill.png" },
@@ -82,18 +86,59 @@ const dummyData = {
   ],
 };
 
-const Navbar = () => (
-  <nav className="bg-black text-white px-6 py-4 flex items-center justify-between">
-    <img src={logonet} alt="Netwatch Logo" className="h-8" />
-    <ul className="flex gap-6 text-sm">
-      <li><a href="#">Beranda</a></li>
-      <li><a href="#">Film</a></li>
-      <li><a href="#">Anime</a></li>
-      <li><a href="#">Acara TV</a></li>
-    </ul>
-    <img src="/img/ehkhem1.jpg" alt="Foto Profil" className="w-10 h-10 rounded-full object-cover border border-black" />
-  </nav>
-);
+interface NavbarProps {
+  onSearch?: (term: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
+      ${isScrolled ? "bg-black/90 backdrop-blur-sm shadow-md" : "bg-transparent"} 
+      text-white px-6 py-4 flex items-center justify-between`}>
+      
+      <div className="flex items-center gap-10">
+        <img src={logonet} alt="Netwatch Logo" className="h-6 md:h-8" />
+        
+        <ul className="hidden md:flex gap-6 text-sm font-medium">
+          <li><a href="#">Beranda</a></li>
+          <li><a href="#">Acara TV</a></li>
+          <li><a href="#">Film</a></li>
+          <li><a href="#">Baru & Populer</a></li>
+          <li><a href="#">Daftar Saya</a></li>
+        </ul>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="relative hidden md:block">
+          <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="text-gray-400 w-4 h-4" />
+          </span>
+            <input
+              type="text"
+              placeholder="Cari film..."
+              className="pl-10 pr-4 py-1 rounded-md bg-white/10 text-white placeholder-gray-400 text-sm focus:outline-none"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onSearch?.(e.target.value)}
+          />
+        </div>
+
+        <img
+          src="/img/ehkhem1.jpg"
+          alt="Profil"
+          className="w-8 h-8 rounded-md object-cover"
+        />
+      </div>
+    </nav>
+  );
+};
+
 
 const HeroBanner = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -107,7 +152,7 @@ const HeroBanner = () => {
   };
 
   return (
-    <div className="w-full h-[500px] md:h-[600px] relative overflow-hidden">
+    <div className="w-full h-[600px] md:h-[600px] relative overflow-hidden">
       <video
         ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
@@ -167,21 +212,43 @@ const MediaCarousel = ({ title, items }: { title: string; items: { title: string
   );
 };
 
-const Home = () => (
-  <div className="bg-[#141414] min-h-screen text-white">
-    <Navbar />
-    <HeroBanner />
-    <div className="px-8 py-6">
-      <MediaCarousel title="Lanjutkan Menonton untuk Rai" items={dummyData.continueWatching.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
-      <MediaCarousel title="Anime" items={dummyData.anime.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
-      <MediaCarousel title="Studio Ghibli" items={dummyData.ghibli.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
-      <MediaCarousel title="Drama Korea" items={dummyData.drakor.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
-      <MediaCarousel title="Horror" items={dummyData.horror.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
-      <MediaCarousel title="Kartun Anak" items={dummyData.Kartun.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
-    </div>
-  </div>
-);
-
 export default function Dashboard() {
-  return <Home />;
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredAll = Object.entries(dummyData).map(([category, items]) => ({
+    category,
+    items: items.filter(item =>
+      item.thumbnail.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  })).filter(cat => cat.items.length > 0);
+
+  return (
+    <div className="bg-[#141414] min-h-screen text-white">
+      <Navbar onSearch={(term) => setSearchTerm(term)} />
+      <HeroBanner />
+      <div className="px-8 py-6">
+        {searchTerm !== "" ? (
+          <>
+            <h2 className="text-white text-xl font-bold mb-4">Hasil untuk "{searchTerm}"</h2>
+            {filteredAll.map(({ category, items }) => (
+              <MediaCarousel
+                key={category}
+                title={''}
+                items={items.map(item => ({ title: "", thumbnail: item.thumbnail }))}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            <MediaCarousel title="Lanjutkan Menonton untuk Rai" items={dummyData["Lanjutkan menonton"].map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+            <MediaCarousel title="Anime" items={dummyData.anime.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+            <MediaCarousel title="Studio Ghibli" items={dummyData["Studio ghibli"].map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+            <MediaCarousel title="Drama Korea" items={dummyData.drakor.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+            <MediaCarousel title="Horror" items={dummyData.horror.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+            <MediaCarousel title="Kartun Anak" items={dummyData.Kartun.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
