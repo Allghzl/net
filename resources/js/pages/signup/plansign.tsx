@@ -5,7 +5,7 @@ import Elipse from "@/netcomp/Ellipse 5.svg";
 import checklist from "@/netcomp/check-list.svg";
 
 export default function plansign(props: any) {
-  const email = props.email || "";
+  const email = props.email || props.auth.email || props.auth.user?.email || '';
   console.log(props)
   return (
     <div className="min-h-screen bg-white bg-center relative overflow-hidden">

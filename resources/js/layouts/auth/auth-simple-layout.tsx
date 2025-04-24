@@ -14,8 +14,8 @@ export default function AuthSimpleLayout({ children, title, description }: Props
     return (
         <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10" style={{ backgroundImage: `url(${bg})` }}>
             <Header></Header>
-            <div className="absolute inset-0 bg-black opacity-30 z-0"></div>
-            <div className="w-full max-w-md bg-black/35 backdrop-blur-lg rounded-2xl border border-white/30 shadow-lg p-10">
+            <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+            <div className="w-full max-w-md bg-black/35 backdrop-blur-lg rounded-2xl shadow-lg p-10">
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-start gap-4">
                         <div className="space-y-2 text-left">
