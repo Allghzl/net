@@ -69,6 +69,17 @@ const dummyData = {
     { thumbnail: "/img/gaib.png" },
     { thumbnail: "/img/again.png" },
   ],
+  Kartun: [
+    { thumbnail: "/img/masha.png" },
+    { thumbnail: "/img/grizzy.png" },
+    { thumbnail: "/img/peppa.png" },
+    { thumbnail: "/img/mechamato.png" },
+    { thumbnail: "/img/gumball.png" },
+    { thumbnail: "/img/pjmask.png" },
+    { thumbnail: "/img/robocar.png" },
+    { thumbnail: "/img/pawpatrol.png" },
+    { thumbnail: "/img/Totoro.png" },
+  ],
 };
 
 const Navbar = () => (
@@ -166,6 +177,7 @@ const Home = () => (
       <MediaCarousel title="Studio Ghibli" items={dummyData.ghibli.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
       <MediaCarousel title="Drama Korea" items={dummyData.drakor.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
       <MediaCarousel title="Horror" items={dummyData.horror.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
+      <MediaCarousel title="Kartun Anak" items={dummyData.Kartun.map((item) => ({ title: "", thumbnail: item.thumbnail }))} />
     </div>
   </div>
 );

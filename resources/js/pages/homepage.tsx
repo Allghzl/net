@@ -31,7 +31,7 @@ export default function HomePage(props: any) {
                             <a href={route('login')} className="h-8 btn btn-ghost font-poppins bg-sky-600 rounded-field shadow-none border-none hover:bg-sky-700 focus:bg-sky-700">Masuk</a>
                         )}
                         {props.auth.user && (
-                            <a href={route('logout')} className="h-8 btn btn-ghost font-poppins bg-red-600 rounded-field shadow-none border-none hover:bg-red-700 focus:bg-red-700">Logout</a>
+                            <button onClick={() => router.post(route('logout'))} className="h-8 btn btn-ghost font-poppins bg-red-600 rounded-field shadow-none border-none hover:bg-red-700 focus:bg-red-700">Logout</button>
                         )}
                     </div>
                 </div>
