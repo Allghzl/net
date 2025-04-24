@@ -98,11 +98,11 @@ export default function WatchPage() {
       {/* Play/Pause Tengah */}
       <button
         onClick={togglePlay}
-        className={`absolute z-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white bg-black/50 rounded-full p-4 transition-opacity duration-300 ${
+        className={`absolute z-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white bg-black/50 rounded-full p-4 transition-opacity duration-300 outline-0 ${
           !playing || showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
-        {playing ? <Pause size={48} /> : <Play size={48} />}
+        {playing ? <Pause size={48} strokeWidth={0.5} /> : <Play size={48} strokeWidth={1} />}
       </button>
 
       {/* Kontrol Bawah */}
@@ -118,7 +118,7 @@ export default function WatchPage() {
           max="100"
           value={progress}
           onChange={handleSeek}
-          className="w-full accent-red-600 mb-3"
+          className="w-full accent-sky-600 mb-3 h-1.5 outline-none rounded-4xl"
         />
 
         {/* Kontrol Bar */}
@@ -133,7 +133,7 @@ export default function WatchPage() {
               step="0.05"
               value={volume}
               onChange={handleVolumeChange}
-              className="accent-white w-24"
+              className="accent-white w-24 h-1 outline-none rounded-4xl"
             />
           </div>
 
@@ -143,7 +143,7 @@ export default function WatchPage() {
             className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-700 flex items-center gap-2"
           >
             {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
-            <span className="text-sm">{isFullscreen ? 'Keluar' : 'Fullscreen'}</span>
+            
           </button>
         </div>
       </div>
